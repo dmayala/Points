@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Points.Droid/Resources/values/GoogleMapsKey.xml
