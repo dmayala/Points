@@ -10,11 +10,11 @@ using Android.Support.V4.Content;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Support.Design.Widget;
-using Android.Gms.Common.Apis;
+using Points.Droid.Utils;
 
 namespace Points.Droid.Fragments
 {
-    public class PlacesFragment : Fragment, IOnMapReadyCallback
+    public class PlacesFragment : Fragment, IOnMapReadyCallback, ILocationListener
     {
         const int RequestLocationId = 0;
 
@@ -22,7 +22,7 @@ namespace Points.Droid.Fragments
         private GoogleMap _map;
         private LocationManager _locationManager;
         private Location _currentLocation;
-        private GoogleApiClient _googleApiClient;
+        private PlacesApi _placesApi = new PlacesApi();
 
         public static PlacesFragment NewInstance()
         {
@@ -34,9 +34,6 @@ namespace Points.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
             _locationManager = Activity.GetSystemService(Context.LocationService) as LocationManager;
-             _googleApiClient = new GoogleApiClient
-              .Builder(Context)
-              .Build();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -110,7 +107,34 @@ namespace Points.Droid.Fragments
             var criteria = new Criteria();
             var provider = _locationManager.GetBestProvider(criteria, true);
             _currentLocation = _locationManager.GetLastKnownLocation(provider);
+            _locationManager.RequestLocationUpdates(provider, 1000 * 60, 10, this);
+        }
+
+        public async void OnLocationChanged(Location location)
+        {
             CenterCamera();
+            var places = await _placesApi.FetchNearbyPlacesAsync(location.Latitude, location.Longitude);
+            foreach (var place in places)
+            {
+                var loc = place.Geometry.Location;
+                var markerOptions = new MarkerOptions();
+                var latLng = new LatLng(loc.Latitude, loc.Longitude);
+                markerOptions.SetPosition(latLng);
+                markerOptions.SetTitle(place.Name);
+                _map.AddMarker(markerOptions);
+            }
+        }
+
+        public void OnProviderDisabled(string provider)
+        {
+        }
+
+        public void OnProviderEnabled(string provider)
+        {
+        }
+
+        public void OnStatusChanged(string provider, [GeneratedEnum] Availability status, Bundle extras)
+        {
         }
 
         private void CenterCamera()
