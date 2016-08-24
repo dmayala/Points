@@ -12,6 +12,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
+using Microsoft.Practices.Unity;
 using Points.Shared.Services;
 using System.Collections.Generic;
 using Place = Points.Shared.Models.Place;
@@ -28,7 +29,7 @@ namespace Points.Droid.Fragments
         private GoogleMap _map;
         private LocationManager _locationManager;
         private Location _currentLocation;
-        private PlacesService _placesApi = new PlacesService();
+        private IPlacesService _placesService;
 
         public static PlacesFragment NewInstance()
         {
@@ -40,6 +41,7 @@ namespace Points.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
             _locationManager = Activity.GetSystemService(Context.LocationService) as LocationManager;
+            _placesService = App.Container.Resolve<IPlacesService>();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -120,7 +122,7 @@ namespace Points.Droid.Fragments
         public async void OnLocationChanged(Location location)
         {
             CenterCamera();
-            var places = await _placesApi.FetchNearbyPlacesAsync(location.Latitude, location.Longitude);
+            var places = await _placesService.FetchNearbyPlacesAsync(location.Latitude, location.Longitude);
             _recyclerView.SetAdapter(new PlacesAdapter(places));
             foreach (var place in places)
             {
