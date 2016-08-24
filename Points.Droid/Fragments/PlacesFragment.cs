@@ -1,16 +1,20 @@
-using Android.Gms.Maps;
-using Android.OS;
-using Android.Support.V4.App;
-using Android.Views;
-using Android.Locations;
 using Android.Content;
-using Com.Lilarcor.Cheeseknife;
-using Android.Gms.Maps.Model;
-using Android.Support.V4.Content;
 using Android.Content.PM;
+using Android.Gms.Maps;
+using Android.Gms.Maps.Model;
+using Android.Locations;
+using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using Android.Support.V7.Widget;
+using Android.Views;
+using Android.Widget;
+using Com.Lilarcor.Cheeseknife;
 using Points.Droid.Utils;
+using System.Collections.Generic;
+using Place = Points.Droid.Models.Place;
 
 namespace Points.Droid.Fragments
 {
@@ -19,6 +23,8 @@ namespace Points.Droid.Fragments
         const int RequestLocationId = 0;
 
         private SupportMapFragment _mapFragment;
+        [InjectView(Resource.Id.PlacesRecyclerViewFragment)]
+        private RecyclerView _recyclerView;
         private GoogleMap _map;
         private LocationManager _locationManager;
         private Location _currentLocation;
@@ -40,6 +46,7 @@ namespace Points.Droid.Fragments
         {
             var v = inflater.Inflate(Resource.Layout.fragment_places, container, false);
             Cheeseknife.Inject(this, v);
+            _recyclerView.SetLayoutManager(new LinearLayoutManager(Activity));
             return v;
         }
 
@@ -114,6 +121,7 @@ namespace Points.Droid.Fragments
         {
             CenterCamera();
             var places = await _placesApi.FetchNearbyPlacesAsync(location.Latitude, location.Longitude);
+            _recyclerView.SetAdapter(new PlacesAdapter(places));
             foreach (var place in places)
             {
                 var loc = place.Geometry.Location;
@@ -152,5 +160,54 @@ namespace Points.Droid.Fragments
             }
         }
         #endregion
+    }
+
+    public class PlacesHolder : RecyclerView.ViewHolder
+    {
+        private Context _context;
+        private TextView _nameTextView;
+
+        public PlacesHolder(View itemView) : base(itemView)
+        {
+            _nameTextView = (TextView)itemView;
+            _context = itemView.Context;
+        }
+
+        public void BindPlace(Place place)
+        {
+            _nameTextView.Text = place.Name;
+        }
+    }
+
+    public class PlacesAdapter : RecyclerView.Adapter
+    {
+        private readonly IList<Place> _places;
+
+        public PlacesAdapter(IList<Place> places)
+        {
+            _places = places;
+        }
+
+        public override int ItemCount
+        {
+            get
+            {
+                return _places.Count;
+            }
+        }
+
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        {
+            var placesHolder = holder as PlacesHolder;
+            var place = _places[position];
+            placesHolder.BindPlace(place);
+        }
+
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            var layoutInflater = LayoutInflater.From(parent.Context);
+            var view = layoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, parent, false);
+            return new PlacesHolder(view);
+        }
     }
 }
