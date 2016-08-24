@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Points.Droid.Models
+namespace Points.Shared.Models
 {
     public class Location
     {

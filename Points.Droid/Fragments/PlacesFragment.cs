@@ -12,9 +12,9 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
-using Points.Droid.Utils;
+using Points.Shared.Services;
 using System.Collections.Generic;
-using Place = Points.Droid.Models.Place;
+using Place = Points.Shared.Models.Place;
 
 namespace Points.Droid.Fragments
 {
@@ -28,7 +28,7 @@ namespace Points.Droid.Fragments
         private GoogleMap _map;
         private LocationManager _locationManager;
         private Location _currentLocation;
-        private PlacesApi _placesApi = new PlacesApi();
+        private PlacesService _placesApi = new PlacesService();
 
         public static PlacesFragment NewInstance()
         {

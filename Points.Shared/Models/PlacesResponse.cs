@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Points.Droid.Models
+namespace Points.Shared.Models
 {
     public class PlacesResponse
     {
