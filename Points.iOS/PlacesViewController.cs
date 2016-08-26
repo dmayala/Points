@@ -14,22 +14,30 @@ namespace Points.iOS
     public partial class PlacesViewController : UIViewController, IMKMapViewDelegate, IUITableViewDelegate, IUITableViewDataSource
     {
         private IList<Place> _places;
+        private IList<Card> _cards;
+
         private IPlacesService _placesService;
+        private IPointsService _pointsService;
         private MKUserLocation _currentLocation;
 
         public PlacesViewController (IntPtr handle) : base (handle)
         {
             _placesService = App.Container.Resolve<IPlacesService>();
+            _pointsService = App.Container.Resolve<IPointsService>();
         }
 
-        public override void ViewDidLoad()
+        public async override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            _cards = (await _pointsService.FetchCardsAsync(includeImages: true)).ToList();
+
             MapView.Delegate = this;
             MapView.ShowsUserLocation = true;
 
             TableView.Delegate = this;
             TableView.DataSource = this;
+
+            TableView.RowHeight = 65;
         }
 
         [Export("tableView:numberOfRowsInSection:")]
@@ -42,11 +50,12 @@ namespace Points.iOS
         public UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Get a new or recycled cel
-            var cell = tableView.DequeueReusableCell("UITableViewCell", indexPath);
+            var cell = tableView.DequeueReusableCell("CardItemCell", indexPath) as CardItemCell;
 
             // Set the text on cell 
             var item = _places[indexPath.Row];
-            cell.TextLabel.Text = item.Name;
+            cell.NameLabel.Text = item.Name;
+            cell.ImageLabel.Image = new UIImage(NSData.FromArray(_cards.First().Image));
 
             return cell;
         }

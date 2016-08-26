@@ -12,6 +12,7 @@ namespace Points.iOS
         {
             Container = new UnityContainer();
             Container.RegisterInstance<IPlacesService>(Container.Resolve<PlacesService>());
+            Container.RegisterInstance<IPointsService>(Container.Resolve<PointsService>());
             Container.RegisterInstance(new CLLocationManager());
         }
     }
