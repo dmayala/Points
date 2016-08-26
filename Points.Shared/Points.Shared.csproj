@@ -44,7 +44,9 @@
     <Compile Include="Models\PlacesResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPlacesService.cs" />
+    <Compile Include="Services\IPointsService.cs" />
     <Compile Include="Services\PlacesService.cs" />
+    <Compile Include="Services\PointsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
