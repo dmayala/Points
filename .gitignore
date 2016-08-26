@@ -245,3 +245,4 @@ ModelManifest.xml
 .fake/
 /Points.Droid/Resources/values/GoogleMapsKey.xml
 /Components
+/Points.Web/config.json

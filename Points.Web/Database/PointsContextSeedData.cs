@@ -18,13 +18,33 @@ namespace Points.Web.Database
             if (!_context.Cards.Any())
             {
                 // Add new data
-                _context.Cards.AddRange(new Card[]
-                {
-                    new Card() { Name = "Chase Freedom" },
-                    new Card() { Name = "Chase Sapphire Preferred" },
-                    new Card() { Name = "Starwood Preferred Guest" }
-                });
+                var cat = new Category() { Name = "All" };
 
+                var categoryValues = new CategoryValue[]
+                {
+                    new CategoryValue() {
+                        Card =  new Card() { Name = "Chase Freedom", ImageName = "cf.png" },
+                        Category = cat,
+                        Points = 1.0
+                    },
+                    new CategoryValue() {
+                        Card = new Card() { Name = "Chase Sapphire Preferred", ImageName = "csp.png" },
+                        Category = cat,
+                        Points = 2.0
+                    },
+                    new CategoryValue() {
+                        Card =  new Card() { Name = "Starwood Preferred Guest", ImageName = "spg.png" },
+                        Category = cat,
+                        Points = 2.4
+                    },
+                    new CategoryValue() {
+                        Card =  new Card() { Name = "Discover It", ImageName = "dit.png" },
+                        Category = cat,
+                        Points = 1.0
+                    }
+                };
+
+                _context.CategoryValues.AddRange(categoryValues);
                 await _context.SaveChangesAsync();
             }
         }

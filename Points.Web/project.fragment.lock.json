@@ -3,12 +3,12 @@
   "exports": {
     "Points.Shared/1.0.0": {
       "type": "project",
-      "framework": ".NETFramework,Version=v4.5",
+      "framework": ".NETStandard,Version=v1.0",
       "compile": {
         "bin/Debug/Points.Shared.dll": {}
       },
       "runtime": {
-        "../packages/Newtonsoft.Json.9.0.1/lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {},
+        "../../../../../../../Program Files (x86)/Reference Assemblies/Microsoft/Framework/MonoAndroid/v1.0/System.Net.Http.dll": {},
         "bin/Debug/Points.Shared.dll": {}
       },
       "contentFiles": {
