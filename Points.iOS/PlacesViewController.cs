@@ -14,7 +14,7 @@ namespace Points.iOS
     public partial class PlacesViewController : UIViewController, IMKMapViewDelegate, IUITableViewDelegate, IUITableViewDataSource
     {
         private IList<Place> _places;
-        private IList<Card> _cards;
+        private Card _bestCard;
 
         private IPlacesService _placesService;
         private IPointsService _pointsService;
@@ -26,10 +26,9 @@ namespace Points.iOS
             _pointsService = App.Container.Resolve<IPointsService>();
         }
 
-        public async override void ViewDidLoad()
+        public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            _cards = (await _pointsService.FetchCardsAsync(includeImages: true)).ToList();
 
             MapView.Delegate = this;
             MapView.ShowsUserLocation = true;
@@ -55,7 +54,7 @@ namespace Points.iOS
             // Set the text on cell 
             var item = _places[indexPath.Row];
             cell.NameLabel.Text = item.Name;
-            cell.ImageLabel.Image = new UIImage(NSData.FromArray(_cards.First().Image));
+            cell.ImageLabel.Image = new UIImage(NSData.FromArray(_bestCard.Image));
 
             return cell;
         }
@@ -67,6 +66,7 @@ namespace Points.iOS
             var coordinates = _currentLocation.Coordinate;
             var region = MKCoordinateRegion.FromDistance(coordinates, 1500, 1500);
             mapView.SetRegion(region, animated: true);
+            _bestCard = await _pointsService.FetchBestCardForCategoryAsync("all", true); 
             _places = await _placesService.FetchNearbyPlacesAsync(coordinates.Latitude, coordinates.Longitude);
             TableView.ReloadData();
             AddPlaceAnnotations();

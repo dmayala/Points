@@ -9,7 +9,7 @@ namespace Points.Shared.Services
 {
     public class PointsService : IPointsService
     {
-        const string BaseUrl = "http://10.211.55.3:5000/";
+        const string BaseUrl = "http://10.211.55.3:5000";
 
         public async Task<IEnumerable<Card>> FetchCardsAsync(bool includeImages = false)
         {
@@ -17,7 +17,7 @@ namespace Points.Shared.Services
 
             using (var client = new HttpClient())
             {
-                var jsonString = await client.GetStringAsync(BaseUrl + "api/cards");
+                var jsonString = await client.GetStringAsync(BaseUrl + "/api/cards");
                 var response = JsonConvert.DeserializeObject<IEnumerable<Card>>(jsonString);
                 items = response.ToList();
 
@@ -25,7 +25,7 @@ namespace Points.Shared.Services
                 {
                     var tasks = items.Select(async (i) =>
                     {
-                        var image = await client.GetByteArrayAsync(BaseUrl + "img/cards/" + i.ImageName);
+                        var image = await client.GetByteArrayAsync(BaseUrl + "/img/cards/" + i.ImageName);
                         i.Image = image;
                         return i;
                     }).ToList();
@@ -37,6 +37,23 @@ namespace Points.Shared.Services
             }
         }
 
+        public async Task<Card> FetchBestCardForCategoryAsync(string categoryName, bool includeImages = false)
+        {
+            using (var client = new HttpClient())
+            {
+                var jsonString = await client.GetStringAsync($"{BaseUrl}/api/cards/category/{categoryName}");
+                var response = JsonConvert.DeserializeObject<CategoryValue>(jsonString);
 
+                var card = response.Card;
+
+                if (includeImages)
+                {
+                    var image = await client.GetByteArrayAsync(BaseUrl + "/img/cards/" + card.ImageName);
+                    card.Image = image;
+                }
+
+                return card;
+            }
+        }
     }
 }

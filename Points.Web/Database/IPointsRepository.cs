@@ -6,5 +6,6 @@ namespace Points.Web.Database
     public interface IPointsRepository
     {
         IEnumerable<Card> GetAllCards();
+        CategoryValue GetBestCardForCategory(string categoryName);
     }
 }

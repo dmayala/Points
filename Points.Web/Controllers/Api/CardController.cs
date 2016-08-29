@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Points.Web.Database;
+using System.Net;
 
 namespace Points.Web.Controllers.Api
 {
@@ -23,5 +24,22 @@ namespace Points.Web.Controllers.Api
             var results = _repository.GetAllCards();
             return Json(results);
         }
+
+
+        [HttpGet]
+        [Route("category/{categoryName}")]
+        public JsonResult GetBestCardForCategory(string categoryName)
+        {
+            var categoryValue = _repository.GetBestCardForCategory(categoryName);
+
+            if (categoryValue != null)
+            {
+                return Json(categoryValue);
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { Message = "Failed" });
+        }
+
     }
 }
