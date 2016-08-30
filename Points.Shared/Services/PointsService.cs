@@ -9,17 +9,15 @@ namespace Points.Shared.Services
 {
     public class PointsService : IPointsService
     {
-        const string BaseUrl = "http://10.211.55.3:5000";
+        private const string BaseUrl = "http://10.211.55.3:5000";
 
         public async Task<IEnumerable<Card>> FetchCardsAsync(bool includeImages = false)
         {
-            IEnumerable<Card> items;
-
             using (var client = new HttpClient())
             {
                 var jsonString = await client.GetStringAsync(BaseUrl + "/api/cards");
                 var response = JsonConvert.DeserializeObject<IEnumerable<Card>>(jsonString);
-                items = response.ToList();
+                IEnumerable<Card> items = response.ToList();
 
                 if (includeImages)
                 {

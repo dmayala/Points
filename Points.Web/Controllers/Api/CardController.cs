@@ -9,7 +9,7 @@ namespace Points.Web.Controllers.Api
     [Route("/api/cards")]
     public class CardController : Controller
     {
-        private IPointsRepository _repository;
+        private readonly IPointsRepository _repository;
         private ILogger<CardController> _logger;
 
         public CardController(IPointsRepository repository, ILogger<CardController> logger)

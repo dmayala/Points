@@ -33,14 +33,15 @@ namespace Points.Web
 
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<PointsContext>(options =>
-                    options.UseNpgsql(Configuration["Data:PointsContextConnection"]));
+                        options.UseNpgsql(Configuration["Data:PointsContextConnection"]));
 
             services.AddTransient<PointsContextSeedData>();
             services.AddScoped<IPointsRepository, PointsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
 

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Android;
 using Android.Content;
 using Android.Content.PM;
 using Android.Gms.Maps;
@@ -13,23 +15,24 @@ using Android.Views;
 using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
 using Microsoft.Practices.Unity;
+using Points.Shared.Models;
 using Points.Shared.Services;
-using System.Collections.Generic;
-using Place = Points.Shared.Models.Place;
+using Location = Android.Locations.Location;
 
 namespace Points.Droid.Fragments
 {
     public class PlacesFragment : Fragment, IOnMapReadyCallback, ILocationListener
     {
-        const int RequestLocationId = 0;
+        private const int RequestLocationId = 0;
+        private Location _currentLocation;
+        private LocationManager _locationManager;
+        private GoogleMap _map;
+
+        private IPlacesService _placesService;
 
         private SupportMapFragment _mapFragment;
         [InjectView(Resource.Id.PlacesRecyclerViewFragment)]
         private RecyclerView _recyclerView;
-        private GoogleMap _map;
-        private LocationManager _locationManager;
-        private Location _currentLocation;
-        private IPlacesService _placesService;
 
         public static PlacesFragment NewInstance()
         {
@@ -37,6 +40,7 @@ namespace Points.Droid.Fragments
         }
 
         #region Life Cycle
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -55,7 +59,7 @@ namespace Points.Droid.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            _mapFragment = (SupportMapFragment)ChildFragmentManager.FindFragmentById(Resource.Id.map);
+            _mapFragment = (SupportMapFragment) ChildFragmentManager.FindFragmentById(Resource.Id.map);
             if (_mapFragment == null)
             {
                 _mapFragment = SupportMapFragment.NewInstance();
@@ -65,49 +69,54 @@ namespace Points.Droid.Fragments
                 GetPermissions();
             }
         }
+
         #endregion Methods
 
         #region Permissions
+
         private void GetPermissions()
         {
-            if (ContextCompat.CheckSelfPermission(Activity, Android.Manifest.Permission.AccessFineLocation) != (int)Permission.Granted)
-            {
-                RequestPermissions(new string[]{
-                    Android.Manifest.Permission.AccessCoarseLocation,
-                    Android.Manifest.Permission.AccessFineLocation}, RequestLocationId);
-            }
+            if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.AccessFineLocation) !=
+                (int) Permission.Granted)
+                RequestPermissions(new[]
+                {
+                    Manifest.Permission.AccessCoarseLocation,
+                    Manifest.Permission.AccessFineLocation
+                }, RequestLocationId);
             else
-            {
                 _mapFragment.GetMapAsync(this);
-            }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
+            [GeneratedEnum] Permission[] grantResults)
         {
             switch (requestCode)
             {
                 case RequestLocationId:
+                {
+                    if (grantResults[0] == Permission.Granted)
                     {
-                        if (grantResults[0] == Permission.Granted)
-                        {
-                            //Permission Granted
-                            var snack = Snackbar.Make(View, "Location permission is available, getting lat/long.", Snackbar.LengthShort);
-                            snack.Show();
-                            _mapFragment.GetMapAsync(this);
-                        }
-                        else
-                        {
-                            //Permission Denied :(
-                            var snack = Snackbar.Make(View, "Location permission is denied.", Snackbar.LengthShort);
-                            snack.Show();
-                        }
+                        //Permission Granted
+                        var snack = Snackbar.Make(View, "Location permission is available, getting lat/long.",
+                            Snackbar.LengthShort);
+                        snack.Show();
+                        _mapFragment.GetMapAsync(this);
                     }
+                    else
+                    {
+                        //Permission Denied :(
+                        var snack = Snackbar.Make(View, "Location permission is denied.", Snackbar.LengthShort);
+                        snack.Show();
+                    }
+                }
                     break;
             }
         }
+
         #endregion
 
         #region Map Methods
+
         public void OnMapReady(GoogleMap googleMap)
         {
             _map = googleMap;
@@ -116,7 +125,7 @@ namespace Points.Droid.Fragments
             var criteria = new Criteria();
             var provider = _locationManager.GetBestProvider(criteria, true);
             _currentLocation = _locationManager.GetLastKnownLocation(provider);
-            _locationManager.RequestLocationUpdates(provider, 1000 * 60, 10, this);
+            _locationManager.RequestLocationUpdates(provider, 1000*60, 10, this);
         }
 
         public async void OnLocationChanged(Location location)
@@ -161,17 +170,18 @@ namespace Points.Droid.Fragments
                 _map.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraUpdate));
             }
         }
+
         #endregion
     }
 
     public class PlacesHolder : RecyclerView.ViewHolder
     {
-        private Context _context;
-        private TextView _nameTextView;
+        private readonly Context _context;
+        private readonly TextView _nameTextView;
 
         public PlacesHolder(View itemView) : base(itemView)
         {
-            _nameTextView = (TextView)itemView;
+            _nameTextView = (TextView) itemView;
             _context = itemView.Context;
         }
 
@@ -190,19 +200,13 @@ namespace Points.Droid.Fragments
             _places = places;
         }
 
-        public override int ItemCount
-        {
-            get
-            {
-                return _places.Count;
-            }
-        }
+        public override int ItemCount => _places.Count;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             var placesHolder = holder as PlacesHolder;
             var place = _places[position];
-            placesHolder.BindPlace(place);
+            placesHolder?.BindPlace(place);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

@@ -11,16 +11,17 @@ using UIKit;
 
 namespace Points.iOS
 {
-    public partial class PlacesViewController : UIViewController, IMKMapViewDelegate, IUITableViewDelegate, IUITableViewDataSource
+    public partial class PlacesViewController : UIViewController, IMKMapViewDelegate, IUITableViewDelegate,
+        IUITableViewDataSource
     {
         private IList<Place> _places;
         private Card _bestCard;
 
-        private IPlacesService _placesService;
-        private IPointsService _pointsService;
+        private readonly IPlacesService _placesService;
+        private readonly IPointsService _pointsService;
         private MKUserLocation _currentLocation;
 
-        public PlacesViewController (IntPtr handle) : base (handle)
+        public PlacesViewController(IntPtr handle) : base(handle)
         {
             _placesService = App.Container.Resolve<IPlacesService>();
             _pointsService = App.Container.Resolve<IPointsService>();
@@ -51,6 +52,8 @@ namespace Points.iOS
             // Get a new or recycled cel
             var cell = tableView.DequeueReusableCell("CardItemCell", indexPath) as CardItemCell;
 
+            if (cell == null) return null;
+
             // Set the text on cell 
             var item = _places[indexPath.Row];
             cell.NameLabel.Text = item.Name;
@@ -66,7 +69,7 @@ namespace Points.iOS
             var coordinates = _currentLocation.Coordinate;
             var region = MKCoordinateRegion.FromDistance(coordinates, 1500, 1500);
             mapView.SetRegion(region, animated: true);
-            _bestCard = await _pointsService.FetchBestCardForCategoryAsync("all", true); 
+            _bestCard = await _pointsService.FetchBestCardForCategoryAsync("all", true);
             _places = await _placesService.FetchNearbyPlacesAsync(coordinates.Latitude, coordinates.Longitude);
             TableView.ReloadData();
             AddPlaceAnnotations();
@@ -81,7 +84,7 @@ namespace Points.iOS
                 {
                     Coordinate = new CLLocationCoordinate2D(coordinates.Latitude, coordinates.Longitude)
                 };
-            }).ToArray();
+            }).ToArray<IMKAnnotation>();
 
             MapView.AddAnnotations(annotations);
         }

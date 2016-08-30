@@ -9,8 +9,8 @@ namespace Points.Web.Database
 {
     public class PointsRepository : IPointsRepository
     {
-        private PointsContext _context;
-        private ILogger<PointsRepository> _logger;
+        private readonly PointsContext _context;
+        private readonly ILogger<PointsRepository> _logger;
 
         public PointsRepository(PointsContext context, ILogger<PointsRepository> logger)
         {

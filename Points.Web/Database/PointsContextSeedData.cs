@@ -6,7 +6,7 @@ namespace Points.Web.Database
 {
     public class PointsContextSeedData
     {
-        private PointsContext _context;
+        private readonly PointsContext _context;
 
         public PointsContextSeedData(PointsContext context)
         {
@@ -20,25 +20,29 @@ namespace Points.Web.Database
                 // Add new data
                 var cat = new Category() { Name = "All" };
 
-                var categoryValues = new CategoryValue[]
+                var categoryValues = new[]
                 {
-                    new CategoryValue() {
-                        Card =  new Card() { Name = "Chase Freedom", ImageName = "cf.png" },
+                    new CategoryValue()
+                    {
+                        Card = new Card() { Name = "Chase Freedom", ImageName = "cf.png" },
                         Category = cat,
                         Points = 1.0
                     },
-                    new CategoryValue() {
+                    new CategoryValue()
+                    {
                         Card = new Card() { Name = "Chase Sapphire Preferred", ImageName = "csp.png" },
                         Category = cat,
                         Points = 2.0
                     },
-                    new CategoryValue() {
-                        Card =  new Card() { Name = "Starwood Preferred Guest", ImageName = "spg.png" },
+                    new CategoryValue()
+                    {
+                        Card = new Card() { Name = "Starwood Preferred Guest", ImageName = "spg.png" },
                         Category = cat,
                         Points = 2.4
                     },
-                    new CategoryValue() {
-                        Card =  new Card() { Name = "Discover It", ImageName = "dit.png" },
+                    new CategoryValue()
+                    {
+                        Card = new Card() { Name = "Discover It", ImageName = "dit.png" },
                         Category = cat,
                         Points = 1.0
                     }

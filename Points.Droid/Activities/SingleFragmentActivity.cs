@@ -23,8 +23,8 @@ namespace Points.Droid.Activities
             {
                 fragment = CreateFragment();
                 SupportFragmentManager.BeginTransaction()
-                                      .Add(Resource.Id.FragmentContainer, fragment)
-                                      .Commit();
+                    .Add(Resource.Id.FragmentContainer, fragment)
+                    .Commit();
             }
         }
     }
