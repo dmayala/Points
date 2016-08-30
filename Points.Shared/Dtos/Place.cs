@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Points.Shared.Models
+namespace Points.Shared.Dtos
 {
     public class Place
     {

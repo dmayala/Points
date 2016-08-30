@@ -1,4 +1,4 @@
-﻿using Points.Shared.Models;
+﻿using Points.Shared.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

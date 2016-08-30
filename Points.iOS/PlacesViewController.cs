@@ -7,6 +7,7 @@ using Points.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Points.Shared.Dtos;
 using UIKit;
 
 namespace Points.iOS
@@ -69,7 +70,7 @@ namespace Points.iOS
             var coordinates = _currentLocation.Coordinate;
             var region = MKCoordinateRegion.FromDistance(coordinates, 1500, 1500);
             mapView.SetRegion(region, animated: true);
-            _bestCard = await _pointsService.FetchBestCardForCategoryAsync("all", true);
+            _bestCard = await _pointsService.FetchBestCardForCategoryAsync(Category.All, true);
             _places = await _placesService.FetchNearbyPlacesAsync(coordinates.Latitude, coordinates.Longitude);
             TableView.ReloadData();
             AddPlaceAnnotations();

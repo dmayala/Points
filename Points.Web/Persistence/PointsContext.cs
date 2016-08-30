@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Points.Shared.Models;
 
-namespace Points.Web.Database
+namespace Points.Web.Persistence
 {
     public class PointsContext : DbContext
     {
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Card> Cards { get; set; }
-        public DbSet<CategoryValue> CategoryValues { get; set; }
+        public DbSet<Valuation> Valuations { get; set; }
 
         public PointsContext(DbContextOptions options) : base(options)
         {
@@ -19,6 +18,5 @@ namespace Points.Web.Database
             base.OnModelCreating(builder);
             builder.Entity<Card>().Ignore(t => t.Image);
         }
-
     }
 }

@@ -1,8 +1,7 @@
 ﻿namespace Points.Shared.Models
 {
-    public class Category
+    public enum Category
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        All = 1
     }
 }

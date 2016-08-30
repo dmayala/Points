@@ -35,12 +35,12 @@ namespace Points.Shared.Services
             }
         }
 
-        public async Task<Card> FetchBestCardForCategoryAsync(string categoryName, bool includeImages = false)
+        public async Task<Card> FetchBestCardForCategoryAsync(Category categoryType, bool includeImages = false)
         {
             using (var client = new HttpClient())
             {
-                var jsonString = await client.GetStringAsync($"{BaseUrl}/api/cards/category/{categoryName}");
-                var response = JsonConvert.DeserializeObject<CategoryValue>(jsonString);
+                var jsonString = await client.GetStringAsync($"{BaseUrl}/api/valuations/category/{(long) categoryType}");
+                var response = JsonConvert.DeserializeObject<Valuation>(jsonString);
 
                 var card = response.Card;
 

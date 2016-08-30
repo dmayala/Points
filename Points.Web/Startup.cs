@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Points.Web.Database;
+using Points.Web.Core;
+using Points.Web.Core.Repositories;
+using Points.Web.Persistence;
+using Points.Web.Persistence.Repositories;
 using System;
 
 namespace Points.Web
@@ -36,7 +39,10 @@ namespace Points.Web
                         options.UseNpgsql(Configuration["Data:PointsContextConnection"]));
 
             services.AddTransient<PointsContextSeedData>();
-            services.AddScoped<IPointsRepository, PointsRepository>();
+
+            services.AddScoped<ICardsRepository, CardsRepository>();
+            services.AddScoped<IValuationsRepository, ValuationsRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

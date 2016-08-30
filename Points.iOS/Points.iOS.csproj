@@ -123,12 +123,6 @@
     <Content Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Points.Shared\Points.Shared.csproj">
-      <Project>{6F27501C-55C5-4643-8488-F0713BB36B80}</Project>
-      <Name>Points.Shared</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcons.appiconset\Contents.json">
       <InProject>false</InProject>
     </ImageAsset>
@@ -136,6 +130,11 @@
       <InProject>false</InProject>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Points.Shared\Points.Shared.csproj">
+      <Project>{6f27501c-55c5-4643-8488-f0713bb36b80}</Project>
+      <Name>Points.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

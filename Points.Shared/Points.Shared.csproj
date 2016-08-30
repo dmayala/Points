@@ -37,11 +37,11 @@
   <ItemGroup>
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\CategoryValue.cs" />
-    <Compile Include="Models\Geometry.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\Place.cs" />
-    <Compile Include="Models\PlacesResponse.cs" />
+    <Compile Include="Models\Valuation.cs" />
+    <Compile Include="Dtos\Geometry.cs" />
+    <Compile Include="Dtos\Location.cs" />
+    <Compile Include="Dtos\Place.cs" />
+    <Compile Include="Dtos\PlacesResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPlacesService.cs" />
     <Compile Include="Services\IPointsService.cs" />
@@ -50,11 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Net.Http">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v1.0\System.Net.Http.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

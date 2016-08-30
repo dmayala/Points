@@ -15,7 +15,7 @@ using Android.Views;
 using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
 using Microsoft.Practices.Unity;
-using Points.Shared.Models;
+using Points.Shared.Dtos;
 using Points.Shared.Services;
 using Location = Android.Locations.Location;
 
