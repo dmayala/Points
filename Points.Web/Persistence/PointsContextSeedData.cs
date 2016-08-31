@@ -17,33 +17,39 @@ namespace Points.Web.Persistence
         {
             if (!_context.Cards.Any())
             {
-                // Add new data
-                const Category cat = Category.All;
+                var csp = new Card() { Name = "Chase Sapphire Preferred", ImageName = "csp.png" };
 
+                // Add new data
                 var valuations = new[]
                 {
                     new Valuation
                     {
                         Card = new Card() { Name = "Chase Freedom", ImageName = "cf.png" },
-                        Category = cat,
+                        Category = Category.Establishment,
                         Points = 1.0
                     },
                     new Valuation
                     {
-                        Card = new Card() { Name = "Chase Sapphire Preferred", ImageName = "csp.png" },
-                        Category = cat,
+                        Card = csp,
+                        Category = Category.Establishment,
                         Points = 2.0
                     },
                     new Valuation
                     {
+                        Card = csp,
+                        Category = Category.Restaurant,
+                        Points = 4.0
+                    },
+                    new Valuation
+                    {
                         Card = new Card() { Name = "Starwood Preferred Guest", ImageName = "spg.png" },
-                        Category = cat,
+                        Category = Category.Establishment,
                         Points = 2.4
                     },
                     new Valuation
                     {
                         Card = new Card() { Name = "Discover It", ImageName = "dit.png" },
-                        Category = cat,
+                        Category = Category.Establishment,
                         Points = 1.0
                     }
                 };

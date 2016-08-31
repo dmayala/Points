@@ -31,5 +31,19 @@ namespace Points.Web.Controllers.Api
             Response.StatusCode = (int) HttpStatusCode.BadRequest;
             return Json(new { Message = "Failed" });
         }
+
+        [Route("categories")]
+        public JsonResult GetBestValuationForCategories([FromQuery] string[] categories)
+        {
+            var valuation = _unitOfWork.Valuations.GetBestValuationForCategories(categories);
+
+            if (valuation != null)
+            {
+                return Json(valuation);
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { Message = "Failed" });
+        }
     }
 }

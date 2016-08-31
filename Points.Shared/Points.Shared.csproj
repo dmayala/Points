@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Valuation.cs" />

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Points.Shared.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,27 @@ namespace Points.Shared.Services
             using (var client = new HttpClient())
             {
                 var jsonString = await client.GetStringAsync($"{BaseUrl}/api/valuations/category/{(long) categoryType}");
+                var response = JsonConvert.DeserializeObject<Valuation>(jsonString);
+
+                var card = response.Card;
+
+                if (includeImages)
+                {
+                    var image = await client.GetByteArrayAsync(BaseUrl + "/img/cards/" + card.ImageName);
+                    card.Image = image;
+                }
+
+                return card;
+            }
+        }
+
+        public async Task<Card> FetchBestCardForCategoriesAsync(string[] categories, bool includeImages = false)
+        {
+            var categoriesQuery = String.Join("&", categories.Select(s => $"categories={s}"));
+
+            using (var client = new HttpClient())
+            {
+                var jsonString = await client.GetStringAsync($"{BaseUrl}/api/valuations/categories?{categoriesQuery}");
                 var response = JsonConvert.DeserializeObject<Valuation>(jsonString);
 
                 var card = response.Card;

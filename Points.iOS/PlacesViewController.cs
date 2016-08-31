@@ -7,7 +7,9 @@ using Points.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Points.Shared.Dtos;
+using Points.Shared.Extensions;
 using UIKit;
 
 namespace Points.iOS
@@ -16,7 +18,7 @@ namespace Points.iOS
         IUITableViewDataSource
     {
         private IList<Place> _places;
-        private Card _bestCard;
+        private IList<Card> _bestCards;
 
         private readonly IPlacesService _placesService;
         private readonly IPointsService _pointsService;
@@ -57,8 +59,9 @@ namespace Points.iOS
 
             // Set the text on cell 
             var item = _places[indexPath.Row];
+            var bestCard = _bestCards[indexPath.Row];
             cell.NameLabel.Text = item.Name;
-            cell.ImageLabel.Image = new UIImage(NSData.FromArray(_bestCard.Image));
+            cell.ImageLabel.Image = new UIImage(NSData.FromArray(bestCard.Image));
 
             return cell;
         }
@@ -70,8 +73,10 @@ namespace Points.iOS
             var coordinates = _currentLocation.Coordinate;
             var region = MKCoordinateRegion.FromDistance(coordinates, 1500, 1500);
             mapView.SetRegion(region, animated: true);
-            _bestCard = await _pointsService.FetchBestCardForCategoryAsync(Category.All, true);
             _places = await _placesService.FetchNearbyPlacesAsync(coordinates.Latitude, coordinates.Longitude);
+            var cardTasks = _places.Select(async (p) => await _pointsService.FetchBestCardForCategoriesAsync(p.Types, true));
+            _bestCards = await Task.WhenAll(cardTasks);
+
             TableView.ReloadData();
             AddPlaceAnnotations();
         }
