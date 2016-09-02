@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Points.Shared.Dtos;
-using Points.Shared.Extensions;
 using UIKit;
 
 namespace Points.iOS
@@ -74,8 +73,9 @@ namespace Points.iOS
             var region = MKCoordinateRegion.FromDistance(coordinates, 1500, 1500);
             mapView.SetRegion(region, animated: true);
             _places = await _placesService.FetchNearbyPlacesAsync(coordinates.Latitude, coordinates.Longitude);
-            var cardTasks = _places.Select(async (p) => await _pointsService.FetchBestCardForCategoriesAsync(p.Types, true));
+            var cardTasks = _places.Select(async (p) => await _pointsService.FetchBestCardForCategoriesAsync(p.Types));
             _bestCards = await Task.WhenAll(cardTasks);
+            await _pointsService.FetchCardImagesAsync(_bestCards);
 
             TableView.ReloadData();
             AddPlaceAnnotations();

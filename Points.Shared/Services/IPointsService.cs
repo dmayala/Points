@@ -9,5 +9,6 @@ namespace Points.Shared.Services
         Task<IEnumerable<Card>> FetchCardsAsync(bool includeImages = false);
         Task<Card> FetchBestCardForCategoryAsync(Category categoryType, bool includeImages = false);
         Task<Card> FetchBestCardForCategoriesAsync(string[] categories, bool includeImages = false);
+        Task FetchCardImagesAsync(IEnumerable<Card> cards);
     }
 }
