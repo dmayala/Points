@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Points.Shared.Models;
@@ -28,15 +29,17 @@ namespace Points.Web.Persistence.Repositories
             return valuation;
         }
 
-        public Valuation GetBestValuationForCategories(string[] categories)
+        public IEnumerable<Valuation> GetBestValuationsForCategories(string[] categories)
         {
             var cats = categories.Select(c => c.ToEnum<Category>());
-            var valuation = _context.Valuations.Where(c => cats.Contains(c.Category))
-                .Include(c => c.Card)
-                .OrderByDescending(c => c.Points)
-                .FirstOrDefault();
 
-            return valuation;
+            var valuations = _context.Valuations
+                .Where(c => cats.Contains(c.Category))
+                .Include(c => c.Card)
+                .GroupBy(v => v.Category)
+                .Select(v => v.OrderByDescending(c => c.Points).FirstOrDefault());
+                
+            return valuations;
         }
     }
 }

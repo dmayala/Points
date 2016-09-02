@@ -13,58 +13,19 @@ namespace Points.Shared.Services
         private const string BaseUrl = "http://10.211.55.3:5000";
         private static readonly HttpClient Client = new HttpClient();
 
-        public async Task<IEnumerable<Card>> FetchCardsAsync(bool includeImages = false)
+        public async Task<IEnumerable<Card>> FetchCardsAsync()
         {
             var jsonString = await Client.GetStringAsync(BaseUrl + "/api/cards");
             var response = JsonConvert.DeserializeObject<IEnumerable<Card>>(jsonString);
-            IEnumerable<Card> items = response.ToList();
-
-            if (includeImages)
-            {
-                var tasks = items.Select(async (i) =>
-                {
-                    var image = await Client.GetByteArrayAsync(BaseUrl + "/img/cards/" + i.ImageName);
-                    i.Image = image;
-                    return i;
-                }).ToList();
-
-                items = await Task.WhenAll(tasks);
-            }
-
-            return items;
+            return response;
         }
 
-        public async Task<Card> FetchBestCardForCategoryAsync(Category categoryType, bool includeImages = false)
-        {
-            var jsonString = await Client.GetStringAsync($"{BaseUrl}/api/valuations/category/{(long) categoryType}");
-            var response = JsonConvert.DeserializeObject<Valuation>(jsonString);
-
-            var card = response.Card;
-
-            if (includeImages)
-            {
-                var image = await Client.GetByteArrayAsync(BaseUrl + "/img/cards/" + card.ImageName);
-                card.Image = image;
-            }
-
-            return card;
-        }
-
-        public async Task<Card> FetchBestCardForCategoriesAsync(string[] categories, bool includeImages = false)
+        public async Task<IEnumerable<Valuation>> FetchBestValuationForCategoriesAsync(string[] categories)
         {
             var categoriesQuery = String.Join("&", categories.Select(s => $"categories={s}"));
             var jsonString = await Client.GetStringAsync($"{BaseUrl}/api/valuations/categories?{categoriesQuery}");
-            var response = JsonConvert.DeserializeObject<Valuation>(jsonString);
-
-            var card = response.Card;
-
-            if (includeImages)
-            {
-                var image = await Client.GetByteArrayAsync(BaseUrl + "/img/cards/" + card.ImageName);
-                card.Image = image;
-            }
-
-            return card;
+            var response = JsonConvert.DeserializeObject<IEnumerable<Valuation>>(jsonString);
+            return response;
         }
 
         public async Task FetchCardImagesAsync(IEnumerable<Card> cards)

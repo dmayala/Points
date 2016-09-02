@@ -6,9 +6,8 @@ namespace Points.Shared.Services
 {
     public interface IPointsService
     {
-        Task<IEnumerable<Card>> FetchCardsAsync(bool includeImages = false);
-        Task<Card> FetchBestCardForCategoryAsync(Category categoryType, bool includeImages = false);
-        Task<Card> FetchBestCardForCategoriesAsync(string[] categories, bool includeImages = false);
+        Task<IEnumerable<Card>> FetchCardsAsync();
+        Task<IEnumerable<Valuation>> FetchBestValuationForCategoriesAsync(string[] categories);
         Task FetchCardImagesAsync(IEnumerable<Card> cards);
     }
 }

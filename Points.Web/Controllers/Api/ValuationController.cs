@@ -33,13 +33,13 @@ namespace Points.Web.Controllers.Api
         }
 
         [Route("categories")]
-        public JsonResult GetBestValuationForCategories([FromQuery] string[] categories)
+        public JsonResult GetBestValuationsForCategories([FromQuery] string[] categories)
         {
-            var valuation = _unitOfWork.Valuations.GetBestValuationForCategories(categories);
+            var valuations = _unitOfWork.Valuations.GetBestValuationsForCategories(categories);
 
-            if (valuation != null)
+            if (valuations != null)
             {
-                return Json(valuation);
+                return Json(valuations);
             }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;

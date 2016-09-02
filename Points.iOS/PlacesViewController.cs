@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Points.Shared.Dtos;
+using Points.Shared.Extensions;
 using UIKit;
 
 namespace Points.iOS
@@ -17,7 +18,7 @@ namespace Points.iOS
         IUITableViewDataSource
     {
         private IList<Place> _places;
-        private IList<Card> _bestCards;
+        private IList<Valuation> _bestValuations;
 
         private readonly IPlacesService _placesService;
         private readonly IPointsService _pointsService;
@@ -58,9 +59,11 @@ namespace Points.iOS
 
             // Set the text on cell 
             var item = _places[indexPath.Row];
-            var bestCard = _bestCards[indexPath.Row];
+            var bestValuation = _bestValuations.Where(v => item.Types.Contains(v.Category.GetSerializationName()))
+                .OrderByDescending(v => v.Points)
+                .First();
             cell.NameLabel.Text = item.Name;
-            cell.ImageLabel.Image = new UIImage(NSData.FromArray(bestCard.Image));
+            cell.ImageLabel.Image = new UIImage(NSData.FromArray(bestValuation.Card.Image));
 
             return cell;
         }
@@ -72,13 +75,18 @@ namespace Points.iOS
             var coordinates = _currentLocation.Coordinate;
             var region = MKCoordinateRegion.FromDistance(coordinates, 1500, 1500);
             mapView.SetRegion(region, animated: true);
-            _places = await _placesService.FetchNearbyPlacesAsync(coordinates.Latitude, coordinates.Longitude);
-            var cardTasks = _places.Select(async (p) => await _pointsService.FetchBestCardForCategoriesAsync(p.Types));
-            _bestCards = await Task.WhenAll(cardTasks);
-            await _pointsService.FetchCardImagesAsync(_bestCards);
+            await GetCardsAndPlaces(coordinates);
 
             TableView.ReloadData();
             AddPlaceAnnotations();
+        }
+
+        private async Task GetCardsAndPlaces(CLLocationCoordinate2D coordinates)
+        {
+            _places = await _placesService.FetchNearbyPlacesAsync(coordinates.Latitude, coordinates.Longitude);
+            var placeTypes = _places.SelectMany(p => p.Types).Distinct().ToArray();
+            _bestValuations = (await _pointsService.FetchBestValuationForCategoriesAsync(placeTypes)).ToList();
+            await _pointsService.FetchCardImagesAsync(_bestValuations.Select(c => c.Card));
         }
 
         private void AddPlaceAnnotations()

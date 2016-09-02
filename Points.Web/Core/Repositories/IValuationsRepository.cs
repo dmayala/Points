@@ -1,10 +1,11 @@
-﻿using Points.Shared.Models;
+﻿using System.Collections.Generic;
+using Points.Shared.Models;
 
 namespace Points.Web.Core.Repositories
 {
     public interface IValuationsRepository
     {
         Valuation GetBestValuationForCategory(Category categoryType);
-        Valuation GetBestValuationForCategories(string[] categories);
+        IEnumerable<Valuation> GetBestValuationsForCategories(string[] categories);
     }
 }
