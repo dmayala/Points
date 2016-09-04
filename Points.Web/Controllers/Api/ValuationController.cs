@@ -33,9 +33,9 @@ namespace Points.Web.Controllers.Api
         }
 
         [Route("categories")]
-        public JsonResult GetBestValuationsForCategories([FromQuery] string[] categories)
+        public JsonResult GetBestValuationsForCategories([FromQuery] string[] category)
         {
-            var valuations = _unitOfWork.Valuations.GetBestValuationsForCategories(categories);
+            var valuations = _unitOfWork.Valuations.GetBestValuationsForCategories(category);
 
             if (valuations != null)
             {

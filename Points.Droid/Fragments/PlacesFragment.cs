@@ -12,12 +12,14 @@ using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
 using Microsoft.Practices.Unity;
-using Points.Shared.Dtos;
+using Points.Droid.Adapters;
 using Points.Shared.Services;
 using Location = Android.Locations.Location;
+using System.Linq;
+using System.Threading.Tasks;
+using Points.Shared.Dtos;
 
 namespace Points.Droid.Fragments
 {
@@ -29,6 +31,7 @@ namespace Points.Droid.Fragments
         private GoogleMap _map;
 
         private IPlacesService _placesService;
+        private IPointsService _pointsService;
 
         private SupportMapFragment _mapFragment;
         [InjectView(Resource.Id.PlacesRecyclerViewFragment)]
@@ -46,6 +49,7 @@ namespace Points.Droid.Fragments
             base.OnCreate(savedInstanceState);
             _locationManager = Activity.GetSystemService(Context.LocationService) as LocationManager;
             _placesService = App.Container.Resolve<IPlacesService>();
+            _pointsService = App.Container.Resolve<IPointsService>();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -132,7 +136,12 @@ namespace Points.Droid.Fragments
         {
             CenterCamera();
             var places = await _placesService.FetchNearbyPlacesAsync(location.Latitude, location.Longitude);
-            _recyclerView.SetAdapter(new PlacesAdapter(places));
+            await SetCardsAndPlaces(places);
+            AddMarkers(places);
+        }
+
+        private void AddMarkers(IEnumerable<Place> places)
+        {
             foreach (var place in places)
             {
                 var loc = place.Geometry.Location;
@@ -142,6 +151,14 @@ namespace Points.Droid.Fragments
                 markerOptions.SetTitle(place.Name);
                 _map.AddMarker(markerOptions);
             }
+        }
+
+        private async Task SetCardsAndPlaces(IList<Place> places)
+        {
+            var placeTypes = places.SelectMany(p => p.Types).Distinct().ToArray();
+            var bestValuations = (await _pointsService.FetchBestValuationForCategoriesAsync(placeTypes)).ToList();
+            await _pointsService.FetchCardImagesAsync(bestValuations.Select(c => c.Card));
+            _recyclerView.SetAdapter(new PlacesAdapter(places, bestValuations));
         }
 
         public void OnProviderDisabled(string provider)
@@ -172,48 +189,5 @@ namespace Points.Droid.Fragments
         }
 
         #endregion
-    }
-
-    public class PlacesHolder : RecyclerView.ViewHolder
-    {
-        private readonly Context _context;
-        private readonly TextView _nameTextView;
-
-        public PlacesHolder(View itemView) : base(itemView)
-        {
-            _nameTextView = (TextView) itemView;
-            _context = itemView.Context;
-        }
-
-        public void BindPlace(Place place)
-        {
-            _nameTextView.Text = place.Name;
-        }
-    }
-
-    public class PlacesAdapter : RecyclerView.Adapter
-    {
-        private readonly IList<Place> _places;
-
-        public PlacesAdapter(IList<Place> places)
-        {
-            _places = places;
-        }
-
-        public override int ItemCount => _places.Count;
-
-        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
-        {
-            var placesHolder = holder as PlacesHolder;
-            var place = _places[position];
-            placesHolder?.BindPlace(place);
-        }
-
-        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
-        {
-            var layoutInflater = LayoutInflater.From(parent.Context);
-            var view = layoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, parent, false);
-            return new PlacesHolder(view);
-        }
     }
 }

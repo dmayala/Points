@@ -2124,8 +2124,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f020077
 			public const int Icon = 2130837623;
 			
-			// aapt resource value: 0x7f02007c
-			public const int notification_template_icon_bg = 2130837628;
+			// aapt resource value: 0x7f02007d
+			public const int notification_template_icon_bg = 2130837629;
 			
 			// aapt resource value: 0x7f020078
 			public const int places_ic_clear = 2130837624;
@@ -2155,11 +2155,17 @@ namespace Points.Droid
 			// aapt resource value: 0x7f090074
 			public const int FragmentContainer = 2131296372;
 			
+			// aapt resource value: 0x7f090080
+			public const int PlaceListItemImageView = 2131296384;
+			
+			// aapt resource value: 0x7f090081
+			public const int PlaceListItemTitleTextView = 2131296385;
+			
 			// aapt resource value: 0x7f09007f
 			public const int PlacesRecyclerViewFragment = 2131296383;
 			
-			// aapt resource value: 0x7f090080
-			public const int action0 = 2131296384;
+			// aapt resource value: 0x7f090082
+			public const int action0 = 2131296386;
 			
 			// aapt resource value: 0x7f090065
 			public const int action_bar = 2131296357;
@@ -2185,8 +2191,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f090066
 			public const int action_context_bar = 2131296358;
 			
-			// aapt resource value: 0x7f090084
-			public const int action_divider = 2131296388;
+			// aapt resource value: 0x7f090086
+			public const int action_divider = 2131296390;
 			
 			// aapt resource value: 0x7f090003
 			public const int action_menu_divider = 2131296259;
@@ -2230,8 +2236,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f09004f
 			public const int buttonPanel = 2131296335;
 			
-			// aapt resource value: 0x7f090081
-			public const int cancel_action = 2131296385;
+			// aapt resource value: 0x7f090083
+			public const int cancel_action = 2131296387;
 			
 			// aapt resource value: 0x7f090036
 			public const int center = 2131296310;
@@ -2245,8 +2251,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f09005d
 			public const int checkbox = 2131296349;
 			
-			// aapt resource value: 0x7f090087
-			public const int chronometer = 2131296391;
+			// aapt resource value: 0x7f090089
+			public const int chronometer = 2131296393;
 			
 			// aapt resource value: 0x7f09003e
 			public const int clip_horizontal = 2131296318;
@@ -2299,8 +2305,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f090027
 			public const int end = 2131296295;
 			
-			// aapt resource value: 0x7f09008c
-			public const int end_padder = 2131296396;
+			// aapt resource value: 0x7f09008e
+			public const int end_padder = 2131296398;
 			
 			// aapt resource value: 0x7f09002e
 			public const int enterAlways = 2131296302;
@@ -2350,8 +2356,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f09004a
 			public const int image = 2131296330;
 			
-			// aapt resource value: 0x7f09008b
-			public const int info = 2131296395;
+			// aapt resource value: 0x7f09008d
+			public const int info = 2131296397;
 			
 			// aapt resource value: 0x7f090000
 			public const int item_touch_helper_previous_elevation = 2131296256;
@@ -2362,11 +2368,11 @@ namespace Points.Droid
 			// aapt resource value: 0x7f090017
 			public const int light = 2131296279;
 			
-			// aapt resource value: 0x7f090085
-			public const int line1 = 2131296389;
+			// aapt resource value: 0x7f090087
+			public const int line1 = 2131296391;
 			
-			// aapt resource value: 0x7f090089
-			public const int line3 = 2131296393;
+			// aapt resource value: 0x7f09008b
+			public const int line3 = 2131296395;
 			
 			// aapt resource value: 0x7f090018
 			public const int listMode = 2131296280;
@@ -2377,8 +2383,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f09007e
 			public const int map = 2131296382;
 			
-			// aapt resource value: 0x7f090083
-			public const int media_actions = 2131296387;
+			// aapt resource value: 0x7f090085
+			public const int media_actions = 2131296389;
 			
 			// aapt resource value: 0x7f090028
 			public const int middle = 2131296296;
@@ -2410,29 +2416,29 @@ namespace Points.Droid
 			// aapt resource value: 0x7f090034
 			public const int pin = 2131296308;
 			
-			// aapt resource value: 0x7f09008f
-			public const int place_autocomplete_clear_button = 2131296399;
-			
 			// aapt resource value: 0x7f090091
-			public const int place_autocomplete_powered_by_google = 2131296401;
+			public const int place_autocomplete_clear_button = 2131296401;
 			
 			// aapt resource value: 0x7f090093
-			public const int place_autocomplete_prediction_primary_text = 2131296403;
+			public const int place_autocomplete_powered_by_google = 2131296403;
+			
+			// aapt resource value: 0x7f090095
+			public const int place_autocomplete_prediction_primary_text = 2131296405;
+			
+			// aapt resource value: 0x7f090096
+			public const int place_autocomplete_prediction_secondary_text = 2131296406;
 			
 			// aapt resource value: 0x7f090094
-			public const int place_autocomplete_prediction_secondary_text = 2131296404;
+			public const int place_autocomplete_progress = 2131296404;
 			
-			// aapt resource value: 0x7f090092
-			public const int place_autocomplete_progress = 2131296402;
-			
-			// aapt resource value: 0x7f09008d
-			public const int place_autocomplete_search_button = 2131296397;
-			
-			// aapt resource value: 0x7f09008e
-			public const int place_autocomplete_search_input = 2131296398;
+			// aapt resource value: 0x7f09008f
+			public const int place_autocomplete_search_button = 2131296399;
 			
 			// aapt resource value: 0x7f090090
-			public const int place_autocomplete_separator = 2131296400;
+			public const int place_autocomplete_search_input = 2131296400;
+			
+			// aapt resource value: 0x7f090092
+			public const int place_autocomplete_separator = 2131296402;
 			
 			// aapt resource value: 0x7f090006
 			public const int progress_circular = 2131296262;
@@ -2542,8 +2548,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f09003c
 			public const int start = 2131296316;
 			
-			// aapt resource value: 0x7f090082
-			public const int status_bar_latest_event_content = 2131296386;
+			// aapt resource value: 0x7f090084
+			public const int status_bar_latest_event_content = 2131296388;
 			
 			// aapt resource value: 0x7f090070
 			public const int submit_area = 2131296368;
@@ -2554,17 +2560,17 @@ namespace Points.Droid
 			// aapt resource value: 0x7f09000f
 			public const int terrain = 2131296271;
 			
-			// aapt resource value: 0x7f09008a
-			public const int text = 2131296394;
+			// aapt resource value: 0x7f09008c
+			public const int text = 2131296396;
 			
-			// aapt resource value: 0x7f090088
-			public const int text2 = 2131296392;
+			// aapt resource value: 0x7f09008a
+			public const int text2 = 2131296394;
 			
 			// aapt resource value: 0x7f090058
 			public const int textSpacerNoButtons = 2131296344;
 			
-			// aapt resource value: 0x7f090086
-			public const int time = 2131296390;
+			// aapt resource value: 0x7f090088
+			public const int time = 2131296392;
 			
 			// aapt resource value: 0x7f09004e
 			public const int title = 2131296334;
@@ -2767,52 +2773,55 @@ namespace Points.Droid
 			public const int fragment_places = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int notification_media_action = 2130903079;
+			public const int listitem_place = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int notification_media_cancel_action = 2130903080;
+			public const int notification_media_action = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int notification_template_big_media = 2130903081;
+			public const int notification_media_cancel_action = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int notification_template_big_media_narrow = 2130903082;
+			public const int notification_template_big_media = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int notification_template_lines = 2130903083;
+			public const int notification_template_big_media_narrow = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int notification_template_media = 2130903084;
+			public const int notification_template_lines = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int notification_template_part_chronometer = 2130903085;
+			public const int notification_template_media = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int notification_template_part_time = 2130903086;
+			public const int notification_template_part_chronometer = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int place_autocomplete_fragment = 2130903087;
+			public const int notification_template_part_time = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int place_autocomplete_item_powered_by_google = 2130903088;
+			public const int place_autocomplete_fragment = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int place_autocomplete_item_prediction = 2130903089;
+			public const int place_autocomplete_item_powered_by_google = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int place_autocomplete_progress = 2130903090;
+			public const int place_autocomplete_item_prediction = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int select_dialog_item_material = 2130903091;
+			public const int place_autocomplete_progress = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int select_dialog_multichoice_material = 2130903092;
+			public const int select_dialog_item_material = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int select_dialog_singlechoice_material = 2130903093;
+			public const int select_dialog_multichoice_material = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int support_simple_spinner_dropdown_item = 2130903094;
+			public const int select_dialog_singlechoice_material = 2130903094;
+			
+			// aapt resource value: 0x7f030037
+			public const int support_simple_spinner_dropdown_item = 2130903095;
 			
 			static Layout()
 			{

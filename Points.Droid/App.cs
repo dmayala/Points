@@ -19,6 +19,7 @@ namespace Points.Droid
         {
             Container = new UnityContainer();
             Container.RegisterInstance<IPlacesService>(Container.Resolve<PlacesService>());
+            Container.RegisterInstance<IPointsService>(Container.Resolve<PointsService>());
 
             base.OnCreate();
         }
