@@ -2124,8 +2124,8 @@ namespace Points.Droid
 			// aapt resource value: 0x7f020077
 			public const int Icon = 2130837623;
 			
-			// aapt resource value: 0x7f02007d
-			public const int notification_template_icon_bg = 2130837629;
+			// aapt resource value: 0x7f02007c
+			public const int notification_template_icon_bg = 2130837628;
 			
 			// aapt resource value: 0x7f020078
 			public const int places_ic_clear = 2130837624;

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProjectGuid>{7A314E23-5137-4780-A1F7-BB1A5AE76DFA}</ProjectGuid>
@@ -94,6 +95,10 @@
     <None Include="Info.plist">
       <SubType>Designer</SubType>
     </None>
+    <Compile Include="PlaceDetailViewController.cs" />
+    <Compile Include="PlaceDetailViewController.designer.cs">
+      <DependentUpon>PlaceDetailViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlacesViewController.cs" />
     <Compile Include="PlacesViewController.designer.cs">
       <DependentUpon>PlacesViewController.cs</DependentUpon>

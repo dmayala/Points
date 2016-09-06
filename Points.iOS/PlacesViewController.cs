@@ -43,6 +43,28 @@ namespace Points.iOS
             TableView.RowHeight = 65;
         }
 
+        public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+        {
+            // If the triggered segue is the "ShowPlace" segue
+            if (segue.Identifier == "ShowPlace")
+            {
+                // Figure out which row was just tapped
+                var row = TableView.IndexPathForSelectedRow.Row;
+
+                // Get the place and card associated with this row and pass it along
+                var place = _places[row];
+                var bestValuation = _bestValuations.Where(v => place.Types.Contains(v.Category.GetSerializationName()))
+                    .OrderByDescending(v => v.Points)
+                    .First();
+                var detailViewController = segue.DestinationViewController as PlaceDetailViewController;
+                if (detailViewController != null)
+                {
+                    detailViewController.Place = place;
+                    detailViewController.Valuation = bestValuation;
+                }
+            }
+        }
+
         [Export("tableView:numberOfRowsInSection:")]
         public nint RowsInSection(UITableView tableView, nint section)
         {

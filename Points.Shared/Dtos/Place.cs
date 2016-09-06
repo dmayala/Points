@@ -15,5 +15,8 @@ namespace Points.Shared.Dtos
 
         [JsonProperty(PropertyName = "types")]
         public string[] Types { get; set; }
+
+        [JsonProperty(PropertyName = "photos")]
+        public Photo[] Photos { get; set; }
     }
 }

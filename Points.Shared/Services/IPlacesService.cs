@@ -7,5 +7,6 @@ namespace Points.Shared.Services
     public interface IPlacesService
     {
         Task<IList<Place>> FetchNearbyPlacesAsync(double latitude, double longitude);
+        Task<byte[]> FetchPlaceImageAsync(Place place);
     }
 }
