@@ -10,6 +10,9 @@ namespace Points.Shared.Dtos
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
+        [JsonProperty(PropertyName = "icon")]
+        public string Icon { get; set; }
+
         [JsonProperty(PropertyName = "geometry")]
         public Geometry Geometry { get; set; }
 

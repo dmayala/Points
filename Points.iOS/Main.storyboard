@@ -125,10 +125,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1KS-5K-vup" userLabel="ImageViewContainer">
-                                        <rect key="frame" x="0.0" y="175" width="600" height="200"/>
+                                        <rect key="frame" x="0.0" y="175" width="600" height="425"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reason" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qo3-Yg-AHw">
+                                                <rect key="frame" x="273" y="252" width="54" height="19.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZX4-6H-bEv">
-                                                <rect key="frame" x="140" y="8" width="320" height="184"/>
+                                                <rect key="frame" x="140" y="60" width="320" height="184"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="184" id="2bu-sX-bs6"/>
                                                     <constraint firstAttribute="width" constant="320" id="IYL-kr-XCo"/>
@@ -137,17 +143,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="ZX4-6H-bEv" firstAttribute="centerY" secondItem="1KS-5K-vup" secondAttribute="centerY" id="cyD-8w-Zxs"/>
-                                            <constraint firstAttribute="height" constant="200" id="fJH-Nb-tQJ"/>
-                                            <constraint firstItem="ZX4-6H-bEv" firstAttribute="centerX" secondItem="1KS-5K-vup" secondAttribute="centerX" id="g70-HG-0Ia"/>
+                                            <constraint firstItem="ZX4-6H-bEv" firstAttribute="top" secondItem="1KS-5K-vup" secondAttribute="top" constant="60" id="de1-9F-fq9"/>
+                                            <constraint firstItem="ZX4-6H-bEv" firstAttribute="centerX" secondItem="1KS-5K-vup" secondAttribute="centerX" id="jAq-ah-i8O"/>
+                                            <constraint firstItem="qo3-Yg-AHw" firstAttribute="centerX" secondItem="ZX4-6H-bEv" secondAttribute="centerX" id="tv4-0P-FfG"/>
+                                            <constraint firstItem="qo3-Yg-AHw" firstAttribute="top" secondItem="ZX4-6H-bEv" secondAttribute="bottom" constant="8" id="z4X-ni-3mA"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Reason" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qo3-Yg-AHw">
-                                        <rect key="frame" x="274" y="375" width="54" height="225"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="FmD-YA-J4J" firstAttribute="top" secondItem="22h-fd-Qk0" secondAttribute="top" id="Bbd-yn-CJR"/>
@@ -159,11 +160,20 @@
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s6S-Dy-5Ir">
                                 <rect key="frame" x="542" y="150" width="50" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.056107677719999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="VtG-DK-eU4"/>
                                     <constraint firstAttribute="width" constant="50" id="es0-x3-vqC"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -177,6 +187,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="CategoryImage" destination="s6S-Dy-5Ir" id="name-outlet-s6S-Dy-5Ir"/>
                         <outlet property="ImageLabel" destination="ZX4-6H-bEv" id="name-outlet-ZX4-6H-bEv"/>
                         <outlet property="PlaceImage" destination="Mmh-Zl-JSJ" id="name-outlet-Mmh-Zl-JSJ"/>
                         <outlet property="ReasonLabel" destination="qo3-Yg-AHw" id="name-outlet-qo3-Yg-AHw"/>

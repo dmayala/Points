@@ -28,10 +28,16 @@ namespace Points.iOS
             NavigationController.NavigationBar.MakeNavBarTransparent();
 
             var placeByteImage = await _placesService.FetchPlaceImageAsync(Place);
+            var categoryIcon = await _placesService.FetchByteImageAsync(Place.Icon);
 
             if (placeByteImage != null)
             {
                 PlaceImage.Image = new UIImage(NSData.FromArray(placeByteImage));
+            }
+
+            if (categoryIcon != null)
+            {
+                CategoryImage.Image = new UIImage(NSData.FromArray(categoryIcon));
             }
 
             TitleLabel.Text = Place.Name;

@@ -16,6 +16,10 @@ namespace Points.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView CategoryImage { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView ImageLabel { get; set; }
 
         [Outlet]
@@ -28,14 +32,15 @@ namespace Points.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel TextLabel { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel TitleLabel { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
+            if (CategoryImage != null) {
+                CategoryImage.Dispose ();
+                CategoryImage = null;
+            }
+
             if (ImageLabel != null) {
                 ImageLabel.Dispose ();
                 ImageLabel = null;
@@ -49,11 +54,6 @@ namespace Points.iOS
             if (ReasonLabel != null) {
                 ReasonLabel.Dispose ();
                 ReasonLabel = null;
-            }
-
-            if (TextLabel != null) {
-                TextLabel.Dispose ();
-                TextLabel = null;
             }
 
             if (TitleLabel != null) {
