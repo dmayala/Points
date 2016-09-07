@@ -95,6 +95,7 @@
     <None Include="Info.plist">
       <SubType>Designer</SubType>
     </None>
+    <Compile Include="Extensions\NavigationBarExtensions.cs" />
     <Compile Include="PlaceDetailViewController.cs" />
     <Compile Include="PlaceDetailViewController.designer.cs">
       <DependentUpon>PlaceDetailViewController.cs</DependentUpon>

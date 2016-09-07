@@ -1,5 +1,6 @@
 using System;
 using Foundation;
+using Points.iOS.Extensions;
 using Points.Shared.Dtos;
 using Points.Shared.Models;
 using Points.Shared.Services;
@@ -23,6 +24,9 @@ namespace Points.iOS
         public override async void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
+
+            NavigationController.NavigationBar.MakeNavBarTransparent();
+
             var placeByteImage = await _placesService.FetchPlaceImageAsync(Place);
 
             if (placeByteImage != null)
@@ -30,14 +34,9 @@ namespace Points.iOS
                 PlaceImage.Image = new UIImage(NSData.FromArray(placeByteImage));
             }
 
+            TitleLabel.Text = Place.Name;
             ImageLabel.Image = new UIImage(NSData.FromArray(Valuation.Card.Image));
-            TextLabel.Text = Valuation.Reason;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            NavigationItem.Title = Place.Name;
+            ReasonLabel.Text = Valuation.Reason;
         }
     }
 }

@@ -61,6 +61,7 @@ namespace Points.iOS
                 {
                     detailViewController.Place = place;
                     detailViewController.Valuation = bestValuation;
+                    NavigationItem.BackBarButtonItem = new UIBarButtonItem(" ", UIBarButtonItemStyle.Plain, null, null);
                 }
             }
         }

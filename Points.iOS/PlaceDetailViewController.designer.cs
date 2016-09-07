@@ -24,7 +24,15 @@ namespace Points.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel ReasonLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel TextLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel TitleLabel { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
@@ -38,9 +46,19 @@ namespace Points.iOS
                 PlaceImage = null;
             }
 
+            if (ReasonLabel != null) {
+                ReasonLabel.Dispose ();
+                ReasonLabel = null;
+            }
+
             if (TextLabel != null) {
                 TextLabel.Dispose ();
                 TextLabel = null;
+            }
+
+            if (TitleLabel != null) {
+                TitleLabel.Dispose ();
+                TitleLabel = null;
             }
         }
     }
