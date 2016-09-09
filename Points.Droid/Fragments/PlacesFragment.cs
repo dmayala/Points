@@ -26,6 +26,7 @@ namespace Points.Droid.Fragments
     public class PlacesFragment : Fragment, IOnMapReadyCallback, ILocationListener
     {
         private const int RequestLocationId = 0;
+    
         private Location _currentLocation;
         private LocationManager _locationManager;
         private GoogleMap _map;
@@ -37,12 +38,7 @@ namespace Points.Droid.Fragments
         [InjectView(Resource.Id.PlacesRecyclerViewFragment)]
         private RecyclerView _recyclerView;
 
-        public static PlacesFragment NewInstance()
-        {
-            return new PlacesFragment();
-        }
-
-        #region Life Cycle
+        #region Life Cycle Methods
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -74,7 +70,7 @@ namespace Points.Droid.Fragments
             }
         }
 
-        #endregion Methods
+        #endregion
 
         #region Permissions
 

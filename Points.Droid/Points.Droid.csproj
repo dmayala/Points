@@ -61,6 +61,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -111,14 +112,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\PlaceDetailActivity.cs" />
     <Compile Include="Activities\PlacesActivity.cs" />
     <Compile Include="Activities\SingleFragmentActivity.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Adapters\PlacesAdapter.cs" />
+    <Compile Include="Fragments\PlaceDetailFragment.cs" />
     <Compile Include="Fragments\PlacesFragment.cs" />
     <Compile Include="Holders\PlacesHolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Utils\ParcelableUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -131,6 +135,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\listitem_place.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_place_detail.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
