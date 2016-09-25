@@ -10,7 +10,7 @@ namespace Points.Shared.Services
 {
     public class PointsService : IPointsService
     {
-        private const string BaseUrl = "http://192.168.1.31:5000";
+        private const string BaseUrl = "http://10.211.55.3:5000";
         private static readonly HttpClient Client = new HttpClient();
 
         public async Task<IEnumerable<Card>> FetchCardsAsync()

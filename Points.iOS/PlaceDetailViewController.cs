@@ -1,11 +1,10 @@
-using System;
-using Foundation;
+using Microsoft.Practices.Unity;
 using Points.iOS.Extensions;
 using Points.Shared.Dtos;
 using Points.Shared.Models;
 using Points.Shared.Services;
+using System;
 using UIKit;
-using Microsoft.Practices.Unity;
 
 namespace Points.iOS
 {
@@ -32,16 +31,16 @@ namespace Points.iOS
 
             if (placeByteImage != null)
             {
-                PlaceImage.Image = new UIImage(NSData.FromArray(placeByteImage));
+                PlaceImage.Image = placeByteImage.ToUIImage();
             }
 
             if (categoryIcon != null)
             {
-                CategoryImage.Image = new UIImage(NSData.FromArray(categoryIcon));
+                CategoryImage.Image = categoryIcon.ToUIImage();
             }
 
             TitleLabel.Text = Place.Name;
-            ImageLabel.Image = new UIImage(NSData.FromArray(Valuation.Card.Image));
+            ImageLabel.Image = Valuation.Card.Image.ToUIImage();
             ReasonLabel.Text = Valuation.Reason;
         }
     }

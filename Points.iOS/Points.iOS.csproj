@@ -90,6 +90,7 @@
     <Compile Include="CardItemCell.designer.cs">
       <DependentUpon>CardItemCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\ByteExtensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Info.plist">

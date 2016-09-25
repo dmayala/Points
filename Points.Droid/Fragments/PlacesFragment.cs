@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Android;
 using Android.Content;
 using Android.Content.PM;
@@ -15,11 +14,12 @@ using Android.Views;
 using Com.Lilarcor.Cheeseknife;
 using Microsoft.Practices.Unity;
 using Points.Droid.Adapters;
+using Points.Shared.Dtos;
 using Points.Shared.Services;
-using Location = Android.Locations.Location;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Points.Shared.Dtos;
+using Location = Android.Locations.Location;
 
 namespace Points.Droid.Fragments
 {

@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Points.Droid.Holders;
 using Points.Shared.Dtos;
 using Points.Shared.Extensions;
 using Points.Shared.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Points.Droid.Adapters
 {

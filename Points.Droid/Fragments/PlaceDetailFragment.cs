@@ -1,15 +1,15 @@
-using System.Threading.Tasks;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
 using Com.Lilarcor.Cheeseknife;
+using Microsoft.Practices.Unity;
 using Points.Droid.Utils;
 using Points.Shared.Dtos;
 using Points.Shared.Models;
 using Points.Shared.Services;
-using Microsoft.Practices.Unity;
+using System.Threading.Tasks;
 
 namespace Points.Droid.Fragments
 {

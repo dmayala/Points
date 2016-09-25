@@ -2,14 +2,15 @@ using CoreLocation;
 using Foundation;
 using MapKit;
 using Microsoft.Practices.Unity;
+using Points.iOS.Extensions;
+using Points.Shared.Dtos;
+using Points.Shared.Extensions;
 using Points.Shared.Models;
 using Points.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Points.Shared.Dtos;
-using Points.Shared.Extensions;
 using UIKit;
 
 namespace Points.iOS
@@ -53,9 +54,7 @@ namespace Points.iOS
 
                 // Get the place and card associated with this row and pass it along
                 var place = _places[row];
-                var bestValuation = _bestValuations.Where(v => place.Types.Contains(v.Category.GetSerializationName()))
-                    .OrderByDescending(v => v.Points)
-                    .First();
+                Valuation bestValuation = GetBestValuation(place);
                 var detailViewController = segue.DestinationViewController as PlaceDetailViewController;
                 if (detailViewController != null)
                 {
@@ -81,12 +80,10 @@ namespace Points.iOS
             if (cell == null) return null;
 
             // Set the text on cell 
-            var item = _places[indexPath.Row];
-            var bestValuation = _bestValuations.Where(v => item.Types.Contains(v.Category.GetSerializationName()))
-                .OrderByDescending(v => v.Points)
-                .First();
-            cell.NameLabel.Text = item.Name;
-            cell.ImageLabel.Image = new UIImage(NSData.FromArray(bestValuation.Card.Image));
+            var place = _places[indexPath.Row];
+            var bestValuation = GetBestValuation(place);
+            cell.NameLabel.Text = place.Name;
+            cell.ImageLabel.Image = bestValuation.Card.Image.ToUIImage();
 
             return cell;
         }
@@ -110,6 +107,13 @@ namespace Points.iOS
             var placeTypes = _places.SelectMany(p => p.Types).Distinct().ToArray();
             _bestValuations = (await _pointsService.FetchBestValuationForCategoriesAsync(placeTypes)).ToList();
             await _pointsService.FetchCardImagesAsync(_bestValuations.Select(c => c.Card));
+        }
+
+        private Valuation GetBestValuation(Place place)
+        {
+            return _bestValuations.Where(v => place.Types.Contains(v.Category.GetSerializationName()))
+                .OrderByDescending(v => v.Points)
+                .First();
         }
 
         private void AddPlaceAnnotations()
